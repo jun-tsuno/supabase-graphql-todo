@@ -12,6 +12,10 @@ const typeDefs = gql`
 		status: String!
 	}
 
+	input UpdateTodoInput {
+		status: String!
+	}
+
 	type Query {
 		todos: [Todo!]
 	}
@@ -19,6 +23,7 @@ const typeDefs = gql`
 	type Mutation {
 		createTodo(input: CreateTodoInput!): Todo
 		deleteTodo(id: ID!): Todo
+		updateTodo(id: ID!, input: UpdateTodoInput!): Todo
 	}
 `;
 

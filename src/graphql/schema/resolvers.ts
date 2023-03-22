@@ -35,6 +35,23 @@ const resolvers = {
 			});
 			return newTodo;
 		},
+		updateTodo: async (
+			parent: undefined,
+			args: { id: string; input: { status: string } },
+			context: Context
+		) => {
+			const id = +args.id;
+			const { status } = args.input;
+			const updatedTodo = await context.prisma.todo.update({
+				where: {
+					id,
+				},
+				data: {
+					status,
+				},
+			});
+			return updatedTodo;
+		},
 	},
 };
 
