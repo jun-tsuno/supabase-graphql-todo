@@ -7,8 +7,18 @@ const typeDefs = gql`
 		status: String!
 	}
 
+	input CreateTodoInput {
+		title: String!
+		status: String!
+	}
+
 	type Query {
 		todos: [Todo!]
+	}
+
+	type Mutation {
+		createTodo(input: CreateTodoInput!): Todo
+		deleteTodo(id: ID!): Todo
 	}
 `;
 
