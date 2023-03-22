@@ -1,19 +1,10 @@
 import { Fragment, useState } from 'react';
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import Tab from '@/components/Tab';
 import Card from '@/components/Card';
 import { TodoType } from '@/types/type';
 import InputField from '../components/InputField';
-
-export const GET_TODOS = gql`
-	query GetAllTodos {
-		todos {
-			id
-			title
-			status
-		}
-	}
-`;
+import { GET_TODOS } from '@/graphql/queries/queries';
 
 const tabs = [
 	{ label: 'INCOMPLETE', id: 'incomplete' },
@@ -25,11 +16,11 @@ const Home = () => {
 	const [activeTab, setActiveTab] = useState('incomplete');
 	const { data, loading, error } = useQuery(GET_TODOS);
 
-	if (loading) return <h2>Loading...</h2>;
-	if (error) return <h2>Something Went Wrong! Please Try Again!</h2>;
+	if (loading) return <div className='text-white'>Loading...</div>;
+	if (error)
+		return <div className='text-white'>Something Went Wrong!! Try Again!</div>;
 
 	const { todos } = data;
-
 	const filteredTodos = todos.filter((todo: TodoType) => {
 		return activeTab === todo.status;
 	});
@@ -37,7 +28,7 @@ const Home = () => {
 	return (
 		<>
 			<div className='w-[90%] h-[100vh] max-w-[800px] mx-auto'>
-				<h1 className='text-center py-5 text-2xl font-semibold text-emerald-500'>
+				<h1 className='text-center py-8 text-2xl font-semibold text-emerald-500'>
 					ToDo App with Supabase & GraphQL
 				</h1>
 				<InputField />

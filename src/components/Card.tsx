@@ -1,27 +1,13 @@
 import { useState } from 'react';
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { TodoType } from '@/types/type';
 import MyButton from './MyButton';
-import { GET_TODOS } from '@/pages';
+import {
+	GET_TODOS,
+	DELETE_TODO_MUTATION,
+	UPDATE_TODO_MUTATION,
+} from '@/graphql/queries/queries';
 import Dropdown from './Dropdown';
-
-const DELETE_TODO_MUTATION = gql`
-	mutation DeleteTodo($id: ID!) {
-		deleteTodo(id: $id) {
-			title
-		}
-	}
-`;
-
-const UPDATE_TODO_MUTATION = gql`
-	mutation UpdateTodo($id: ID!, $input: UpdateTodoInput!) {
-		updateTodo(id: $id, input: $input) {
-			id
-			title
-			status
-		}
-	}
-`;
 
 interface CardProps {
 	todo: TodoType;

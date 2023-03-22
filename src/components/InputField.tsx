@@ -1,18 +1,8 @@
 import { FormEvent, useState } from 'react';
 import MyButton from './MyButton';
-import { gql, useMutation } from '@apollo/client';
-import { GET_TODOS } from '../pages/index';
+import { useMutation } from '@apollo/client';
+import { GET_TODOS, CREATE_TODO_MUTATION } from '@/graphql/queries/queries';
 import Dropdown from './Dropdown';
-
-const CREATE_TODO_MUTATION = gql`
-	mutation CreateTodo($input: CreateTodoInput!) {
-		createTodo(input: $input) {
-			id
-			title
-			status
-		}
-	}
-`;
 
 const InputField = () => {
 	const [inputTitle, setInputTitle] = useState<string>('');
@@ -35,18 +25,15 @@ const InputField = () => {
 
 	return (
 		<>
-			<form
-				onSubmit={handleSubmit}
-				className='w-[90%] mx-auto flex justify-around'
-			>
+			<form onSubmit={handleSubmit} className='space-y-3 sm:flex sm:space-y-0'>
 				<input
 					type='text'
 					placeholder='Task Title...'
 					value={inputTitle}
 					onChange={(e) => setInputTitle(e.target.value)}
-					className='grow p-2 rounded-lg'
+					className='p-2 rounded-lg w-full'
 				/>
-				<div>
+				<div className='flex items-center'>
 					<Dropdown setSelect={setInputStatus} />
 					<MyButton primary type='submit'>
 						ADD
